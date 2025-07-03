@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Главная</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="menu" v-show="menuVisible" @click.self="closeMenu">
+            <img class="close_of_menu" src="images/close_of_menu.svg" alt="Закрыть" @click="closeMenu" />
+            <div class="navigation_of_menu">
+                <a class="links_of_menu" href="#First_section_title" @click="closeMenu">ОБО МНЕ</a>
+                <a class="links_of_menu" href="#Second_section_title" @click="closeMenu">ДОСТИЖЕНИЯ</a>
+                <a class="links_of_menu" href="#Third_section_title" @click="closeMenu">ДЕТСКИЙ САД</a>
+                <a class="links_of_menu" href="#" @click="showDialog">ОБРАТНАЯ СВЯЗЬ</a>
+                <a class="links_of_menu" href="#Fourth_section_title" @click="closeMenu">КОНТАКТЫ</a>
+            </div>
+        </div>
+        <div class="dialog" :class="{ 'active': dialogVisible }" @click.self="closeDialog">
+            <div class="content" @click.stop>
+                <img class="close" src="images/close.svg" alt="Закрыть" @click="closeDialog" />
+                <h2 class="title title_in_dialog">Обратная связь</h2>
+                <p class="text_under_title_in_dialog">
+                    Если у вас есть вопросы, свяжитесь со мной
+                </p>
+                <form class="form_for_connection" @submit.prevent="submitForm">
+                    <input class="input_of_form_for_connection name" v-model="form.name" type="text" placeholder="Имя" />
+                    <input class="input_of_form_for_connection email" v-model="form.email" type="email" placeholder="E-mail" />
+                    <input class="input_of_form_for_connection phone" v-model="form.phone" type="tel" placeholder="+7(123)456-78-90" />
+                    <textarea class="message" v-model="form.message" placeholder="Ваше сообщение"></textarea>
+                    <div class="accept">
+                        <input id="Accept" type="checkbox" v-model="form.accepted" />
+                        <p class="text_around_checkbox">
+                            Я согласен на обработку
+                            <span class="blue_text_around_checkbox">персональных данных</span>
+                            и с условиями
+                            <span class="blue_text_around_checkbox">пользовательского соглашения</span>
+                        </p>
+                    </div>
+                    <p class="error" v-if="error">{{ error }}</p>
+                    <button class="connection btn_in_form_for_connection" type="submit">
+                        ОТПРАВИТЬ
+                    </button>
+                </form>
+            </div>
+        </div>
+        <header>
+            <div class="main_in_header">
+                <nav class="main_nav">
+                    <img id="Menu" src="images/menu.svg" alt="Меню" @click="showMenu" />
+                    <img src="images/logo.svg" alt="Логотип" />
+                    <div class="navigation">
+                        <a class="main_links" href="#First_section_title">ОБО МНЕ</a>
+                        <a class="main_links" href="#Second_section_title">ДОСТИЖЕНИЯ</a>
+                        <a class="main_links" href="#Third_section_title">ДЕТСКИЙ САД</a>
+                        <a class="main_links" href="#" @click.prevent="showDialog">ОБРАТНАЯ СВЯЗЬ</a>
+                        <a class="main_links" href="#Fourth_section_title">КОНТАКТЫ</a>
+                    </div>
+                    <div class="social">
+                        <a href="https://vk.com/club216664388" target="_blank">
+                            <img src="images/vk.svg" alt="ВКонтакте" />
+                        </a>
+                        <a href="mailto:ds6_nn@mail.52gov.ru">
+                            <img src="images/mail.svg" alt="Email" />
+                        </a>
+                    </div>
+                </nav>
+                <div class="info_in_header">
+                    <div class="info_about_person">
+                        <p class="position">Заведующий МБДОУ "Детский сад №6"Светлячок"</p>
+                        <h1 class="person">Амелина Оксана Евгеньевна</h1>
+                        <p class="what_find">
+                            Здесь вы найдете информацию обо мне, достижениях и новости для родителей.
+                        </p>
+                        <button class="connection" @click="showDialog">ОБРАТНАЯ СВЯЗЬ</button>
+                    </div>
+                    <img class="image_of_person" src="images/person.png" alt="Фото" style="height: 500px;" />
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="First_section">
+                <div class="main_in_first_section">
+                    <h2 class="title" id="First_section_title">Обо мне</h2>
+                    <p class="info_in_first_section">
+                        Я работаю заведующим МБДОУ "Детский сад №6"Светлячок" города
+                        Нижнего Новгорода. Стаж работы в должности 29 лет. Окончила НГПУ
+                        специальность «Дошкольная педагогика и психология», квалификация
+                        «Преподаватель».
+                    </p>
+                <div class="blocks_in_first_section">
+                <div class="block_about_person">
+                    <img src="images/block_1.svg" alt="Образование">
+                         <p class="title_in_block">Образование</p>
+                         <p class="text_in_block">высшее</p>
+                </div>
+                <div class="block_about_person">
+                    <img src="images/block_2.svg" alt="Специальность">
+                        <p class="title_in_block">Специальность</p>
+                        <p class="text_in_block">дошкольная педагогика и психология</p>
+                </div>
+                 <div class="block_about_person combined-block">
+                    <img src="images/block_3.svg" alt="Квалификация">
+                        <p class="title_in_block">Квалификация</p>
+                        <p class="text_in_block">преподаватель</p>
+                </div>
+            </div>
+            </section>
+
+            <section id="Second_section">
+                <div class="main_in_second_section">
+                    <h2 class="title" id="Second_section_title">Курсы повышения квалификации</h2>
+                    <div class="blocks_in_second_section">
+                        <div class="block_about_reach">
+                            <img src="images/mark.svg" alt="Галочка" />
+                            <p class="text_in_block_about_reach">
+                                ГБОУ ДПО НИРО - 72 часа
+                                <br>Февраль 2025 «Инновационный
+                                менеджмент в ДОО» <br/>
+                                Апрель 2023 «Менеджмент ДОО в
+                                контексте внедрения и реализации Федеральной программы
+                                дошкольного образования» </br>
+                            </p>
+                        </div>
+                        <div class="block_about_reach block_about_reach_margin_left">
+                            <img src="images/mark.svg" alt="Галочка" />
+                            <p class="text_in_block_about_reach text_in_block_about_reach_2">
+                                ООО «МЦ Дент Вест»
+                                «Обучение педагогических работников первой помощи», январь 2022
+                            </p>
+                        </div>
+                        <div class="block_about_reach block_about_reach_margin_top">
+                            <img src="images/mark.svg" alt="Галочка" />
+                            <p class="text_in_block_about_reach">
+                                ГБОУ ДПО НИРО - 72 часа, май 2022
+                                «Проектная команда как административно-педагогический
+                                ансамбль стратегического развития ДОО»
+                            </p>
+                        </div>
+                    </div>
+                    <div class="diplomas">
+                        <p class="text_up_title">Сертификаты и награды</p>
+                        <h2 class="title">Достижения</h2>
+                        <div class="all_diplomas">
+                            <img class="diploma" src="images/diploma_1.png" alt="Диплом" style="height: 380px;" />
+                            <img class="diploma" src="images/diploma_2.png" alt="Диплом" style="height: 380px;" />
+                            <img class="diploma diploma_margin_top" src="images/diploma_3.png" alt="Диплом" style="height: 380px;" />
+                            <img class="diploma diploma_margin_top" src="images/diploma_4.png" alt="Диплом" style="height: 380px;" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Third_section">
+                <div class="main_in_third_section">
+                    <h2 class="title" id="Third_section_title">Детский сад</h2>
+                    <p class="info_in_third_section">
+                        Свою работу я вижу не только в получении детьми знаний, но и в
+                        умении применять эти знания во всех областях жизни.
+                    </p>
+                    <div class="images">
+                        <div class="up_in_images">
+                            <img class="image up_image" src="images/image_1.png" alt="Фото" />
+                            <img class="image up_image" src="images/image_2.png" alt="Фото" />
+                        </div>
+                        <div class="down_in_images">
+                            <img class="image down_image" src="images/image_3.png" alt="Фото" />
+                            <img class="image down_image down_image_margin_left" src="images/image_4.png" alt="Фото" />
+                            <img class="image down_image down_image_margin_top" src="images/image_5.png" alt="Фото" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Fourth_section">
+                <div class="main_in_fourth_section">
+                    <h2 class="title" id="Fourth_section_title">Контакты</h2>
+                    <div class="blocks_in_fourth_section">
+                        <div class="block_about_contact">
+                            <img src="images/icon_1.svg" alt="Иконка" />
+                            <p class="title_in_block">Телефон</p>
+                            <p class="text_in_block_about_contact">
+                                Номер телефона: +7(831)245-60-78<br />Телефон доверия:
+                                +7(831)248-60-80
+                            </p>
+                        </div>
+                        <div class="block_about_contact block_about_contact_margin_left">
+                            <img src="images/icon_2.svg" alt="Иконка" />
+                            <p class="title_in_block">Адрес</p>
+                            <p class="text_in_block_about_contact">
+                                г.Нижний Новгород, Канавинский район, ул.Вольская, д.1
+                            </p>
+                        </div>
+                        <div class="block_about_contact block_about_contact_margin_top">
+                            <img src="images/icon_3.svg" alt="Иконка" />
+                            <p class="title_in_block">Как добраться</p>
+                            <p class="text_in_block_about_contact">
+                                автобусами - до остановки «Дворец культуры», <br>метро до станции «Чкаловская».<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p class="copyright">© Персональный сайт заведующего Оксаны Амелиной</p>
+        </footer>
+        <a href="#" class="scrollup" v-show="showScrollButton" @click="scrollToTop">Наверх</a>
+    </div>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/jquery-scroll.js"></script>
+</body>
+</html>
